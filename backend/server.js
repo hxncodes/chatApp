@@ -1,24 +1,29 @@
 import express from "express";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 import chalk from "chalk";
-import authRoutes from "./routes/auth.routes.js";
 import dbConnection from "./db/dbConnection.js";
+
+import authRoutes from "./routes/auth.routes.js";
+import messageRoutes from "./routes/message.routes.js";
 
 dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Middleware to parse JSON bodies
-app.use(express.json());
+
+app.use(express.json()); // Middleware to parse JSON bodies
+app.use(cookieParser());
 
 // Root Route
 app.get("/", (req, res) => {
   res.send("Welcome to the root route");
 });
 
-// Auth Routes
+// Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/messages", messageRoutes);
 
 // Start server and establish DB connection
 app.listen(port, async () => {

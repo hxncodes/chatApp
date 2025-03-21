@@ -1,4 +1,3 @@
-import express from "express";
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
 import generateTokenAndSetCookies from "../utils/generateTokens.js";
@@ -53,7 +52,7 @@ export const signup = async (req, res) => {
       avatar: newUser.avatar,
     });
   } catch (error) {
-    console.error("Error during signup:", error);
+    console.error("Error in Signup controller:", error.message);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -86,7 +85,7 @@ export const login = async (req, res) => {
       avatar: user.avatar,
     });
   } catch (error) {
-    console.error("Error during login:", error);
+    console.error("Error in Login controller:", error.message);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -103,7 +102,7 @@ export const logout = (req, res) => {
 
     return res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
-    console.error("Error during logout:", error);
+    console.error("Error in logout controller:", error.message);
     return res.status(500).json({ error: "Internal server error" });
   }
 };
